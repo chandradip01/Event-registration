@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAckathon Event Registration</title>
+
+  <style>
+    :root {
+      --primary: #8a471e;
+      --secondary: #eef0f5;
+      --bg: #f8fafc;
+      --text: #1f2937;
+      --error: #dc2626;
+      --success: #16a34a;
+    }
+    
+.event-img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      background: #0f172a;
+      padding: 0.8rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .event-box {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .countdown {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: var(--secondary);
+    }
+
+    form {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 5px;
+      border: 1px solid #cbd5e1;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--secondary);
+    }
+
+    .error {
+      color: var(--error);
+      font-size: 0.85rem;
+    }
+
+    .success {
+      color: var(--success);
+      font-weight: bold;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    button {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      padding: 0.7rem;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--primary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #0f172a;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<img src="https://share.google/fG7J9YXebbjsHghvo" class="event-img">
+<header>
+  <h1>Tech Club Event Portal</h1>
+  <p>Register for upcoming club events</p>
+</header>
+
+<nav>
+  <a href="#event">Event</a>
+  <a href="#register">Register</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="event">
+  <h2>Event Details</h2>
+  <div class="event-box">
+    <p><strong>Event:</strong> Mozilla fire fox hackathon!</p>
+    <p><strong>Date:</strong> 10 feb 2026</p>
+    <p><strong>Time:</strong> 10:00 AM to 7:00 PM</p>
+    <p><strong>Venue:</strong> CS  Hall</p>
+
+    <div class="countdown" id="countdown"></div>
+  </div>
+</section>
+
+<section id="register">
+  <h2>Event Registration</h2>
+
+  <form id="registrationForm">
+    <div class="form-group">
+      <label>Name *</label>
+      <input type="text" id="name">
+      <div class="error" id="nameError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Email *</label>
+      <input type="email" id="email">
+      <div class="error" id="emailError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Phone Number *</label>
+      <input type="tel" id="phone">
+      <div class="error" id="phoneError"></div>
+    </div>
+
+    <button type="submit">Register Now</button>
+
+    <div class="success" id="successMessage"></div>
+  </form>
+</section>
+
+<section id="contact">
+  <h2>Contact Information</h2>
+  <p>Email: Mozillafirefox@vit.in</p>
+  <p>Phone: +91 9435167289</p>
+</section>
+
+<footer>
+  <p>© 2026 Mozilla firefox Club | All Rights Reserved</p>
+</footer>
+
+<script>
+  const form = document.getElementById("registrationForm");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let valid = true;
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("phoneError").textContent = "";
+
+    if (name.length < 3) {
+      document.getElementById("nameError").textContent = "Enter a valid name";
+      valid = false;
+    }
+
+    if (!email.includes("@")) {
+      document.getElementById("emailError").textContent = "Enter a valid email";
+      valid = false;
+    }
+
+    if (phone.length !== 10) {
+      document.getElementById("phoneError").textContent = "Enter 10-digit number";
+      valid = false;
+    }
+
+    if (valid) {
+      document.getElementById("successMessage").textContent =
+        "🎉 Registration successful! See you at the event.";
+      form.reset();
+    }
+  });
+
+
+  const eventDate = new Date("March 25, 2026 10:00:00").getTime();
+  const countdownEl = document.getElementById("countdown");
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+
+    if (diff <= 0) {
+      countdownEl.textContent = "Event is Live!";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    countdownEl.textContent =
+      `Event starts in ${days}d ${hours}h ${minutes}m`;
+  }, 1000);
+</script>
+
+</body>
+</html>
